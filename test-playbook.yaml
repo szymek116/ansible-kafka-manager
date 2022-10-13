@@ -1,0 +1,27 @@
+- name: TestPlaybookKafkaManager
+  hosts: kafkagw
+
+  tasks:
+  - name: Create topic stream_a
+    kafka_manager:
+      cmd_path: "{{ cmd_path }}"
+      create: True
+      topic: stream_a
+      partitions: 3
+      retention_bytes: 1000
+
+  - name: List topics
+    kafka_manager:
+      cmd_path: "{{ cmd_path }}"
+      list: True
+    register: cmdout
+
+  - assert:
+      that:
+      - "'stream_a' in cmdout.msg"
+
+  - name: Delete topic stream_a
+    kafka_manager:
+      cmd_path: "{{ cmd_path }}"
+      delete: True
+      topic: stream_a

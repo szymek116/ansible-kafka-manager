@@ -1,0 +1,30 @@
+- name: Create topic stream_a
+  kafka_manager:
+    cmd_path: "{{ cmd_path }}"
+    create: True
+    topic: stream_a
+    partitions: 3
+    retention_bytes: 1000
+
+- name: Create topic stream_b
+  kafka_manager:
+    cmd_path: "{{ cmd_path }}"
+    create: True
+    topic: stream_b
+    partitions: 1
+    retention_ms: 36000
+
+- name: Delete topic stream_a
+  kafka_manager:
+    cmd_path: "{{ cmd_path }}"
+    delete: True
+    topic: stream_a
+
+- name: List topics
+  kafka_manager:
+    cmd_path: "{{ cmd_path }}"
+    list: True
+  register: cmdout
+
+- name: Print topics
+  debug: msg="{{ cmdout.stdout_lines }}"      

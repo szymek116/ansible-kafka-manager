@@ -1,0 +1,4 @@
+- name: ExamplePlaybookKafkaManager
+  hosts: kafkagw
+  roles:
+    - role: 'roles/prj_streaming'
